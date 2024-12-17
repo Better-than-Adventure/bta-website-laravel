@@ -1,4 +1,3 @@
-@props(['heading' => null])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -14,10 +13,9 @@
         @vite(['resources/css/app.css', 'resources/scss/app.scss', 'resources/js/app.js'])
     </head>
     <body>
-        @include('layouts.navigation')
+        <x-layout.navigation/>
         <div class="content">
-                {{ $heading }}
-            <div class="px-3 px-lg-0">
+            <div class="mt-4 px-3 px-lg-0">
                 {{ $slot }}
             </div>
         </div>
