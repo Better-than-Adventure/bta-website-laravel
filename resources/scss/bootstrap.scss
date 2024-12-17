@@ -1,0 +1,16 @@
+@import "~bootstrap/scss/bootstrap";
+@import "~easyMDE/dist/easymde.min.css";
+
+// DataTables
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+@import "datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css";
+@import 'datatables.net-select-bs5/css/select.bootstrap5.css';
+
+.sidebar {
+    position: fixed;
+}
+
+.admin-container {
+    margin-left: 17.5rem;
+}

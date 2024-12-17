@@ -1,0 +1,75 @@
+$navbar-padding-y: 0;
+$navbar-nav-link-padding-x: 2rem;
+
+$bs-pagination-bg: #5a2f2f;
+$bs-pagination-border-color: $accent;
+$btn-border-radius: 0rem;
+$btn-border-radius-sm: 0rem;
+
+$nav-link-hamburger-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAyMiAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3QgeD0iMC4yMDYzOSIgeT0iMC4wMjMxNDc2IiB3aWR0aD0iMjAuOTIzNiIgaGVpZ2h0PSIzIiByeD0iMC4zIiBmaWxsPSJ3aGl0ZSIvPgo8cmVjdCB4PSIwLjIwNjM5IiB5PSI3LjAyMzE1IiB3aWR0aD0iMjAuOTIzNiIgaGVpZ2h0PSIzIiByeD0iMC4zIiBmaWxsPSJ3aGl0ZSIvPgo8cmVjdCB4PSIwLjIwNjM5IiB5PSIxNC4wMjMxIiB3aWR0aD0iMjAuOTIzNiIgaGVpZ2h0PSIzIiByeD0iMC4zIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K");
+$nav-link-hamburger-shadow: rgba(0, 0, 0, 0.38);
+
+$nav-link-hover-color: #519833;
+
+.navbar-container {
+    background-color: $accent;
+    border-bottom: 0.25rem solid $accent-shadow;
+    border-top: 0.25rem solid $accent-highlight;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-title {
+    font-weight: bold;
+    color: $white;
+    margin: auto;
+    margin-left: 1rem;
+}
+
+.mobile-menu {
+    background-color: $black;
+    border-bottom: $accent 4px solid;
+    .nav-link {
+        color: $accent;
+        &:hover {
+            color: $accent-highlight;
+        }
+        &.active {
+            color: $white;
+        }
+    }
+}
+
+.navbar-custom .navbar-nav .nav-link {
+    color: $white;
+    text-decoration: inherit;
+    font-weight: bold;
+
+    &.active {
+        color: $white;
+        background-color: $accent-active;
+    }
+
+    &:not(.active):hover {
+        background-color: $nav-link-hover-color;
+    }
+
+    &[data-bs-toggle="collapse"] {
+        padding: 0 !important;
+        height: 44px;
+        width: 44px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.navbar-toggler-icon {
+    position: relative;
+    background-image: $nav-link-hamburger-image !important;
+    filter: drop-shadow(0 1px 1px $nav-link-hamburger-shadow);
+}
