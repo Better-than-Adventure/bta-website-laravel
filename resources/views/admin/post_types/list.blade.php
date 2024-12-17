@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-layout.admin>
     <div>
         <h2>Post Types</h2>
         <hr/>
@@ -8,5 +8,5 @@
     @push('scripts')
         {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
     @endpush
-</x-admin-layout>
+</x-layout.admin>
 

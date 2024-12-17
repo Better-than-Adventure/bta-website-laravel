@@ -1,7 +1,7 @@
 
 @props(['postType'])
 
-<x-admin-layout>
+<x-layout.admin>
     <div>
         <h2>Create New Post Type</h2>
         <hr/>
@@ -27,4 +27,4 @@
             </div>
         </form>
     </div>
-</x-admin-layout>
+</x-layout.admin>

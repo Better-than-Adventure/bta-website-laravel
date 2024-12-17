@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-layout.guest>
     <x-slot:heading>
         <x-page-header title="Blog" image="posts.png"/>
     </x-slot:heading>
@@ -8,4 +8,4 @@
     @endforeach
 
     {{ $posts->links() }}
-</x-app-layout>
+</x-layout.guest>

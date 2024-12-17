@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-layout.guest>
     <div class="content">
         <img src="{{asset('images/content/'.$post->slug.'/header/'.$post->header_image_url)}}" class="post-header" />
     </div>
@@ -10,4 +10,4 @@
         <h1 class="mb-3">{{$post->title}}</h1>
         <x-markdown>{{$post->content}}</x-markdown>
     </div>
-</x-app-layout>
+</x-layout.guest>

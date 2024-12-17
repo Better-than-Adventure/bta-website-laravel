@@ -1,5 +1,5 @@
-<x-admin-layout>
+<x-layout.admin>
     <div>
         You're logged in!
     </div>
-</x-admin-layout>
+</x-layout.admin>

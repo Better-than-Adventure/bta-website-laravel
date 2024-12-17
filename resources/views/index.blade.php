@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-layout.guest>
     <x-slot:heading>
         <x-page-header title="Home" image="home.jpg"/>
     </x-slot:heading>
@@ -60,4 +60,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-layout.guest>

@@ -1,7 +1,7 @@
 
 @props(['post'])
 
-<x-admin-layout>
+<x-layout.admin>
     <div>
         <h2>Create New Post</h2>
         <hr/>
@@ -78,4 +78,4 @@
             </div>
         </form>
     </div>
-</x-admin-layout>
+</x-layout.admin>
