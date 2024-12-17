@@ -15,7 +15,8 @@
     <body>
         <x-layout.navigation/>
         <div class="content">
-            <div class="mt-4 px-3 px-lg-0">
+                {{ $heading ?? ''  }}
+            <div class="px-3 px-lg-0">
                 {{ $slot }}
             </div>
         </div>
