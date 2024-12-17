@@ -14,8 +14,13 @@
 </head>
 <body class="h-100">
     <div class=" d-flex justify-content-center align-items-center h-100">
-        <div>
+        <div class="card px-4 py-5" style="max-width: 400px;">
+            <div class="card-body">
+                <div class="d-flex justify-content-center mb-1">
+                    <img src="/images/admin-logo.png" alt="bta! admin"/>
+                </div>
             {{ $slot }}
+            </div>
         </div>
     </div>
 
