@@ -21,9 +21,9 @@
                     </a>
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
-                        <x-admin-menu-item label="Dashboard" route="dashboard" />
-                        <x-admin-menu-item label="Posts" route="admin.posts" />
-                        <x-admin-menu-item label="Post Types" route="admin.postTypes" />
+                        <x-admin-menu-item label="Pages" :route="route('admin.posts')" />
+                        <x-admin-menu-item label="Articles" :route="route('admin.posts', ['type' => 'blog'])" />
+                        <x-admin-menu-item label="Galleries" :route="route('admin.posts', ['type' => 'gallery'])" />
                     </ul>
                     <hr>
                     <x-admin-user-menu/>

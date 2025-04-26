@@ -3,9 +3,20 @@ import UseBootstrapTag from "use-bootstrap-tag";
 import './bootstrap';
 import 'laravel-datatables-vite';
 import Alpine from 'alpinejs';
+import sort from '@alpinejs/sort'
+import component from 'alpinejs-component'
+
+window.xComponent = {
+    name: 'a-component',
+}
+
+Alpine.plugin(component)
+Alpine.plugin(sort);
+
+Alpine.start();
 
 window.Alpine = Alpine;
 
-Alpine.start();
+
 
 const tagInput = UseBootstrapTag(document.getElementById('tagInput'))

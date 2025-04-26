@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('summary');
+            $table->string('summary')->nullable();
             $table->string('slug');
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->boolean('draft')->default(true);
             $table->timestamp('published_at');
             $table->integer('post_type_id')->unsigned();

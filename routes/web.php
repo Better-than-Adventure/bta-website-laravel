@@ -12,6 +12,10 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
+Route::get('downloads', function () {
+    return view('downloads');
+})->name('downloads');
+
 Route::prefix('/{postType}')->group(function () {
     Route::get('/', [PostTypeController::class, 'list'])->name('posts.list');
     Route::prefix('{post}')->group(function () {

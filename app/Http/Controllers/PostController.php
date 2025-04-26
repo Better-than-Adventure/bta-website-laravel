@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\PostMediaDataTable;
 use App\DataTables\PostsDataTable;
+use App\Enums\EnumPostTemplates;
+use App\Models\GalleryItem;
 use App\Models\Post;
 use App\Models\PostType;
 use App\Models\Tag;
@@ -15,10 +18,48 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(PostsDataTable $postsDataTable)
+    public function index()
+    {
+        $type = request()->get('type');
+        $postsDataTable = new PostsDataTable($type);
+        return $postsDataTable->render('admin.posts.list', ['type' => $type]);
+    }
+
+    public function media(PostType $postType, Post $post)
+    {
+        $dataTable = new PostMediaDataTable($post->id);
+        return $dataTable->render('admin.posts.media', ['post' => $post]);
+    }
+
+    public function storeMedia(Request $request, Post $post)
+    {
+        $validated = $request->validate([
+            'description' => 'string|required',
+            'media' => 'nullable|image|mimes:jpeg,jpg,png,gif'
+        ]);
+
+        if($request->hasFile('media')){
+            $request->file('media')->store('public/images/content/'.$post->slug.'/media');
+            $post->image_url = $request->file('media')->hashName();
+        }
+
+        GalleryItem::create([
+            'image_path' => $request->file('media')->hashName(),
+            'image_description' => $validated['description'],
+            'post_id' => $post->id,
+        ]);
+
+        return redirect()->back();
+
+    }
+
+    public function deleteMedia(Post $post, GalleryItem $galleryItem)
     {
 
-        return $postsDataTable->render('admin.posts.list');
+        $galleryItem->delete();
+
+        return redirect()->back();
+
     }
 
     /**
@@ -26,8 +67,10 @@ class PostController extends Controller
      */
     public function view(PostType $postType, Post $post)
     {
-
-        return view('posts.view', compact('post'));
+        if($postType->post_template_enum == EnumPostTemplates::Article)
+            return view('posts.article', compact('post'));
+        else
+            return view('posts.page', compact('post'));
     }
 
     /**
@@ -52,7 +95,7 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( Post $post)
+    public function edit(Post $post)
     {
         $post = Post::findOrFail($post->id);
         return view('admin.posts.create-edit')->with(compact('post'));
@@ -78,6 +121,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'summary' => 'required|max:255',
             'content' => 'nullable',
+            'video_code' => 'nullable|max:11',
             'image' => 'nullable|image|mimes:jpeg,jpg,png,gif'
         ]);
 
@@ -98,9 +142,14 @@ class PostController extends Controller
             $post->header_image_url = $request->file('header')->hashName();
         }
 
+        if($request->has('video_code')){
+            $post->video = $request->get('video_code');
+        }
+
         $postTypeId = $request->get("post_type");
         $postType = PostType::findOrFail($postTypeId);
         $post->postType()->associate($postType);
+
 
         $post->save();
 

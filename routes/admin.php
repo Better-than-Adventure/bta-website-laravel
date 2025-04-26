@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NavigationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostTypeController;
 use App\Http\Controllers\ProfileController;
@@ -14,12 +15,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function () {
             return view('dashboard');
         })->name('dashboard');
-        Route::prefix('posts')->group(function () {
+        Route::prefix('/posts')->group(function () {
             Route::get('/', [PostController::class, 'index'])->name('admin.posts');
-            Route::get('/create', [PostController::class, 'create'])->name('admin.posts.create');
-            Route::post('/store', [PostController::class, 'store'])->name('admin.posts.store');
-            Route::get('/edit/{post}', [PostController::class, 'edit'])->name('admin.posts.edit');
-            Route::post('/update/{post}', [PostController::class, 'update'])->name('admin.posts.update');
+            Route::get('create', [PostController::class, 'create'])->name('admin.posts.create');
+            Route::post('store', [PostController::class, 'store'])->name('admin.posts.store');
+            Route::get('edit/{post}', [PostController::class, 'edit'])->name('admin.posts.edit');
+            Route::post('update/{post}', [PostController::class, 'update'])->name('admin.posts.update');
+            Route::get('media/{post}', [PostController::class, 'media'])->name('admin.posts.media');
+            Route::post('media/{post}', [PostController::class, 'storeMedia'])->name('admin.posts.media-upload');
+            Route::post('media/{post}/{galleryItem}', [PostController::class, 'deleteMedia'])->name('admin.posts.media-delete');
         });
         Route::prefix('post_type')->group(function () {
             Route::get('/', [PostTypeController::class, 'index'])->name('admin.postTypes');
@@ -27,6 +31,9 @@ Route::middleware('auth')->group(function () {
             Route::post('/store', [PostTypeController::class, 'store'])->name('admin.postTypes.store');
             Route::get('/edit/{postTypeId}', [PostTypeController::class, 'edit'])->name('admin.postTypes.edit');
             Route::post('/update/{postTypeId}', [PostTypeController::class, 'update'])->name('admin.postTypes.update');
+        });
+        Route::prefix('navigation')->group(function () {
+            Route::get('/', [NavigationController::class, 'index'])->name('admin.navigation');
         });
     });
 });

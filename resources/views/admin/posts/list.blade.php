@@ -1,8 +1,15 @@
+@props(['type'])
+
+@php
+    $title = $type ?? 'page';
+
+@endphp
+
 <x-layout.admin>
     <div>
-        <h2>Posts</h2>
+        <h2>{{Str::plural(Str::title($title))}}</h2>
         <hr/>
-        <a class="btn btn-primary" href="{{route('admin.posts.create')}}">Create</a>
+        <a class="btn btn-primary" href="{{route('admin.posts.create', ['type' => $type ?? null])}}">New {{Str::title($title)}}</a>
         {{ $dataTable->table() }}
     </div>
     @push('scripts')

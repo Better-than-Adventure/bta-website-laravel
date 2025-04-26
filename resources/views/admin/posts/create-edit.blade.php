@@ -1,5 +1,12 @@
-
 @props(['post'])
+
+@php
+    $type = request()->get('type') ?? null;
+    $postTypeQuery = \App\Models\PostType::query();
+    if($type === 'gallery'){
+        $postTypeQuery = \App\Models\PostType::where('post_template_enum', \App\Enums\EnumPostTemplates::Gallery);
+    }
+@endphp
 
 <x-layout.admin>
     <div>
@@ -27,6 +34,7 @@
                     <input type="hidden" id="contentOld" name="contentOld" value="{{old('content', $post->content)}}">
                     <textarea id="mdeTextEditor" name="content" rows="4" cols="50"></textarea>
                 </div>
+
             </div>
             <div class="col-md-3">
                 <div class="card mb-3">
@@ -37,8 +45,8 @@
                     <div class="card-body">
                         <input type="file" id="header" name="header" class="mb-3">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" required name="video" value="{{old('video', $post->video)}}" placeholder="Video">
-                            <label for="floatingInput">Video</label>
+                            <input type="text" class="form-control" name="video_code" value="{{old('video', $post->video)}}">
+                            <label for="floatingInput">Video code</label>
                         </div>
                     </div>
                 </div>
@@ -47,7 +55,7 @@
                     <div class="card-body">
                         <p class="card-text"><span>Post Type:</span>
                         <select name="post_type" class="form-select">
-                            @foreach(\App\Models\PostType::all() as $postType)
+                            @foreach($postTypeQuery->get() as $postType)
                                 <option value="{{$postType->id}}" @if($post->exists && $post->postType?->id == $postType->id) selected @endif>{{$postType->name}}</option>
                             @endforeach
                         </select>
@@ -63,7 +71,8 @@
                         <input class="form-control"
                             type="datetime-local"
                             id="publish-date"
-                            name="publish_at" />
+                            name="publish_at"
+                            value="{{old('published_at', $post->published_at)}}"/>
                         <hr/>
                         <div>
                             @if(!$post->exists || $post->is_draft)

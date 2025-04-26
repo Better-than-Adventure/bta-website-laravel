@@ -99,6 +99,8 @@ return [
 
     'key' => env('APP_KEY'),
 
+    'release_channel' => env('RELEASE_CHANNEL_URL'),
+
     'previous_keys' => [
         ...array_filter(
             explode(',', env('APP_PREVIOUS_KEYS', ''))

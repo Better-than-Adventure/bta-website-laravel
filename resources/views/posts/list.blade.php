@@ -1,6 +1,6 @@
 <x-layout.guest>
     <x-slot:heading>
-        <x-page-header title="Blog" image="posts.png"/>
+        <x-page-header title="{{$postType->name}}" image="images/header/posts.png"/>
     </x-slot:heading>
 
     @foreach($posts as $post)

@@ -20,7 +20,7 @@ class PostTypeController extends Controller
             ->where('published_at', '<=', Carbon::now())
             ->orderBy('published_at', 'desc')
             ->paginate(10);
-        return view('posts.list')->with(compact('posts'));
+        return view('posts.list')->with(compact('posts', 'postType'));
     }
 
     /**

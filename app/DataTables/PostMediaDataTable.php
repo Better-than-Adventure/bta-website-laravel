@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Enums\EnumPostTemplates;
+use App\Models\GalleryItem;
 use App\Models\Post;
 use App\Models\PostType;
 use Carbon\Carbon;
@@ -12,7 +13,7 @@ use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class PostsDataTable extends DataTable
+class PostMediaDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -20,55 +21,41 @@ class PostsDataTable extends DataTable
      * @param QueryBuilder $query Results from query() method.
      */
 
-    protected mixed $filter;
+    protected mixed $post_id;
 
-    public function __construct($filter = null)
+    public function __construct($post_id)
     {
         parent::__construct();
-        $this->filter = $filter;
+        $this->post_id = $post_id;
     }
 
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
             ->setRowId('id')
-            ->addColumn('postType', function($column) {
-                return $column->postType?->name ?? 'N/A';
+            ->addColumn('image_path', function($column) {
+                return $column->image_path;
             })
-            ->addColumn('tags', function($column) {
-                return view('datatables.tags', compact('column'));
-            })
-            ->addColumn('status', function($column) {
-                return $column->status;
-            })
-            ->addColumn('published_at', function($column) {
-                return Carbon::parse($column->published_at)->format('d M Y h:i');
+            ->addColumn('image_description', function($column) {
+                return $column->image_description;
             })
             ->addColumn('created_at', function($column) {
                 return Carbon::parse($column->created_at)->format('d M Y');
             })
+            ->addColumn('thumbnail', function($column) {
+                return view('datatables.posts.media.thumbnail', ['item' => $column]);
+            })
             ->addColumn('actions', function($column) {
-            return view('datatables.posts.actions', ['post' => $column]);
+            return view('datatables.posts.media.actions', ['galleryItem' => $column]);
             })->rawColumns(['status']);
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Post $model): QueryBuilder
+    public function query(GalleryItem $model): QueryBuilder
     {
-        $query = $model->newQuery();
-
-        switch ($this->filter){
-            case('blog'):
-                $query = $query->whereHas('postType', function ($query) { $query->where('slug', 'blog'); });
-                break;
-            case('gallery'):
-                $query = $query->whereHas('postType', function ($query) { $query->where('post_template_enum', EnumPostTemplates::Gallery); });
-                break;
-        }
-
-        return $query;
+        return $model->where('post_id', $this->post_id);
     }
 
     /**
@@ -77,7 +64,7 @@ class PostsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('posts-table')
+                    ->setTableId('post-media-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('frtip')
@@ -90,12 +77,8 @@ class PostsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('title'),
-            Column::make('summary'),
-            Column::make('postType'),
-            Column::make('tags'),
-            Column::make('status'),
-            Column::make('published_at'),
+            Column::make('thumbnail'),
+            Column::make('image_description'),
             Column::make('created_at'),
             Column::make('actions'),
         ];
@@ -106,6 +89,6 @@ class PostsDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Posts_' . date('YmdHis');
+        return 'PostGalleryItems_' . date('YmdHis');
     }
 }

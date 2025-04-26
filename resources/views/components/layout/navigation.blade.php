@@ -8,6 +8,11 @@
         <div class="tilt">
             <div id="status" class="pop">.net!</div>
         </div>
+        @if(Auth::user())
+        <div style="right: 0" class="position-absolute me-3">
+            Logged in as <span><a href="{{ route('dashboard') }}" class="fw-bold">{{ Auth::user()->name }}</a></span>
+        </div>
+        @endif
     </div>
     <div id="nav-desktop" class="navbar-container">
         <nav class="navbar navbar-custom navbar-expand">
@@ -19,28 +24,28 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(Route::is('posts.list')) active @endif" href="{{ route('posts.list', ['postType' => 'blog']) }}">
+                        <a class="nav-link @if(request()->is('blog')) active @endif" href="{{ route('posts.list', ['postType' => 'blog']) }}">
                             Blog
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('index') }}" active="{{ request()->routeIs('index') }}">
-                            Download
+                        <a class="nav-link @if(Route::is('downloads')) active @endif" href="{{ route('downloads') }}">
+                            Downloads
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('index') }}" active="{{ request()->routeIs('index') }}">
-                            Install Guide
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('index') }}" active="{{ request()->routeIs('index') }}">
-                            Screenshots
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('index') }}" active="{{ request()->routeIs('index') }}">
+                        <a class="nav-link @if(request()->is('tutorials')) active @endif" href="{{ route('posts.list', ['postType' => 'tutorials']) }}">
                             Tutorials
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(request()->is('photos')) active @endif" href="{{ route('posts.list', ['postType' => 'photos']) }}">
+                            Photos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @if(request()->is('videos')) active @endif" href="{{ route('posts.list', ['postType' => 'videos']) }}">
+                            Videos
                         </a>
                     </li>
                     <li class="nav-item">

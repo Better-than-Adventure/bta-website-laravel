@@ -1,9 +1,6 @@
 @php(['post'])
 
-<a class="btn btn-primary" href="{{route('admin.posts.edit', $post)}}" >
-    <i class="fa-solid fa-pencil"></i>
-</a>
-<button class="btn btn-danger">
-    <i class="fa-solid fa-trash"></i>
-</button>
+<a class="text-primary me-1" href="{{route('admin.posts.edit', ['post' => $post])}}" >Edit</a>
+<a class="text-primary me-1" href="{{route('admin.posts.media', ['post' => $post])}}" >Media</a>
+<a class="text-danger" href="{{route('admin.posts.edit', ['post' => $post])}}">Delete</a>
 
