@@ -19,7 +19,7 @@
             @csrf
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <input class="form-control" required name="description" type="text" id="description">
+                <input class="form-control" name="description" type="text" id="description">
             </div>
             <div class="mb-3">
                 <label for="media" class="form-label">Upload New...</label>

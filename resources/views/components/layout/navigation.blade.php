@@ -38,11 +38,21 @@
                             Tutorials
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->is('photos')) active @endif" href="{{ route('posts.list', ['postType' => 'photos']) }}">
-                            Photos
+                    @php
+                        $galleries = \App\Models\Post::whereHas('postType', function ($query) {
+                            $query->where('post_template_enum', \App\Enums\EnumPostTemplates::Gallery);
+                        })->get();
+                    @endphp
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Images
                         </a>
-                    </li>
+
+                        <ul class="dropdown-menu">
+                            @foreach($galleries as $gallery)
+                                <li><a class="dropdown-item nav-link" href="{{route('posts.view', ['postType' => $gallery->postType, 'post' => $gallery])}}">{{$gallery->title}}</a></li>
+                            @endforeach
+                        </ul>
                     <li class="nav-item">
                         <a class="nav-link @if(request()->is('videos')) active @endif" href="{{ route('posts.list', ['postType' => 'videos']) }}">
                             Videos

@@ -1,19 +1,37 @@
-@import "colors.scss";
+@import "theme/colors";
 @import "fonts.scss";
 @import "downloads.scss";
 @import "header.scss";
 @import "footer.scss";
 
-@import "navigation.scss";
 @import "pagination.scss";
 @import "~bootstrap/scss/functions";
+
+@import "navigation.scss";
 
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/bootstrap";
+
 @import "links.scss";
 @import "buttons.scss";
 
+.navbar-nav {
+    .dropdown-menu {
+        border-bottom: $accent 3px solid;
+        background: #212122;
+
+        .nav-link {
+            font-weight: normal;
+            font-size: 16px;
+            color: #59a838;
+
+            &:hover {
+                color: white;
+            }
+        }
+    }
+}
 .video-container {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 */
@@ -189,6 +207,7 @@ body {
 
     .page-header {
         height: 180px;
+        border-bottom: $accent 4px solid;
     }
 
     // strong {
@@ -204,3 +223,29 @@ body {
         }
     }
 }
+
+.image-enlarger {
+    z-index: 1;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #000000AF;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        max-width: 100%;
+        max-height: 50%;
+    }
+
+    video {
+        height: 90%;
+    }
+
+}
+

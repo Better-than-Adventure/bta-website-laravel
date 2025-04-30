@@ -34,8 +34,8 @@ class PostController extends Controller
     public function storeMedia(Request $request, Post $post)
     {
         $validated = $request->validate([
-            'description' => 'string|required',
-            'media' => 'nullable|image|mimes:jpeg,jpg,png,gif'
+            'description' => 'string|nullable',
+            'media' => 'nullable|file|mimes:jpeg,jpg,png,gif,mp4'
         ]);
 
         if($request->hasFile('media')){
@@ -69,6 +69,8 @@ class PostController extends Controller
     {
         if($postType->post_template_enum == EnumPostTemplates::Article)
             return view('posts.article', compact('post'));
+        else if($postType->post_template_enum == EnumPostTemplates::Gallery)
+            return view('posts.gallery', compact('post'));
         else
             return view('posts.page', compact('post'));
     }
@@ -119,13 +121,17 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'summary' => 'required|max:255',
+            'summary' => 'nullable|max:255',
             'content' => 'nullable',
             'video_code' => 'nullable|max:11',
-            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif'
+            'header' => 'nullable|image|mimes:jpeg,jpg,png,gif'
         ]);
 
         $post->fill($validated);
+
+        if(!$post->slug){
+            $post->slug = Str::slug($post->title);
+        }
 
         if($request->input('action') != "draft")
             $post->draft = false;

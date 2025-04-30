@@ -41,13 +41,6 @@ class Post extends Model
         return $this->tags()->implode('name', ',');
     }
 
-    public function setTitleAttribute(string $title): void
-    {
-        $this->attributes['title'] = $title;
-
-        $this->attributes['slug'] = Str::slug($title);
-    }
-
     public function getRouteKeyName(): string
     {
         return 'slug';
