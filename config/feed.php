@@ -18,8 +18,7 @@ return [
              */
             'url' => '/feed',
 
-            'title' => 'Better than Adventure!',
-            'description' => 'Articles straight from the source',
+            'title' => 'Better than Adventure! | Latest Posts',
             'language' => 'en-US',
 
             /*
@@ -30,7 +29,7 @@ return [
             /*
              * The view that will render the feed.
              */
-            'view' => 'feed::atom',
+            'view' => 'feed::rss',
         ],
     ],
 ];

@@ -8,6 +8,9 @@
                 $post = \App\Models\Post::with('postType')->whereHas('postType', function ($query) {
                     $query->where('slug', 'homepage');
                 })->first();
+
+            $iotd = (new \App\Services\RandomInfographicService())->getRandomInfographic()
+
             @endphp
             @if(filled($post))
                 @if($post->video)
@@ -19,10 +22,14 @@
         </div>
         <div class="col-lg-4">
             <x-home_latest_release/>
-            <hr />
+            <hr/>
             <x-posts.small-post-list title="What's Happening?" :postTypes="['blog']"/>
-            <div class="pb-1 mt-5 mb-2 d-flex align-items-center justify-content-between">
-                Infographs go here!
+            <hr/>
+            <h2 class="mt-0 pb-1 mt-5 ">Tip of the Day</h2>
+            <div class="pb-1 mb-2 d-flex align-items-center justify-content-between">
+                <video loading="lazy" width="100%" height="100%" loop="" autoplay="autoplay" class="gallery">
+                    <source src="{{asset('images/content/infographics/media/'.$iotd)}}" type="video/mp4">
+                </video>
             </div>
             <div>
                 <div style="color: gray;" class="metadata">

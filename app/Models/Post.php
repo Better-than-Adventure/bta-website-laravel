@@ -6,7 +6,9 @@ use App\Enums\EnumPostTemplates;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
@@ -39,6 +41,17 @@ class Post extends Model implements Feedable
         return $this->belongsToMany(Tag::class, 'post_tags');
     }
 
+    public function galleryItems(): HasMany
+    {
+        return $this->hasMany(GalleryItem::class);
+    }
+
+    public function getLinkAttribute(): string
+    {
+        return URL::route('posts.view', ['postType' => $this->postType, 'post' => $this]);
+    }
+
+
 
     public function getFormattedTagsAttribute(): string
     {
@@ -65,7 +78,8 @@ class Post extends Model implements Feedable
             ->title($this->title)
             ->summary($this->summary)
             ->updated($this->updated_at)
-            ->link('/')
+            ->link($this->link)
+            ->image(asset('images/content/'.$this->slug.'/header/'.$this->header_image_url))
             ->authorName($this->author->name);
     }
 }
