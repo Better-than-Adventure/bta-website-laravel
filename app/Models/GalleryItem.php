@@ -14,4 +14,8 @@ class GalleryItem extends Model
         return $this->belongsTo(Post::class, 'post_id');
     }
 
+    public function getUrlAttribute(): string {
+        return asset("images/content/{$this->post->slug}/media/{$this->image_path}");
+    }
+
 }

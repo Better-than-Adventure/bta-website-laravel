@@ -28,7 +28,7 @@
             <h2 class="mt-0 pb-1 mt-5 ">Tip of the Day</h2>
             <div class="pb-1 mb-2 d-flex align-items-center justify-content-between">
                 <video loading="lazy" width="100%" height="100%" loop="" autoplay="autoplay" class="gallery">
-                    <source src="{{asset('images/content/infographics/media/'.$iotd)}}" type="video/mp4">
+                    <source src="{{$iotd}}" type="video/mp4">
                 </video>
             </div>
             <div>

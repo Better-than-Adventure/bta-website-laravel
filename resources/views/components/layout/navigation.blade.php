@@ -1,6 +1,12 @@
+@php
+    $galleries = \App\Models\Post::whereHas('postType', function ($query) {
+        $query->where('post_template_enum', \App\Enums\EnumPostTemplates::Gallery);
+    })->get();
+@endphp
+
 <div id="header-desktop">
     <div class="header d-flex justify-content-center" style="
-                background-image: linear-gradient( rgba(41, 40, 42, 0) 50%,  rgba(10, 10, 10, 0.5)),
+                background-image: linear-gradient( rgba(41, 40, 42, 0.5) 50%,  rgba(10, 10, 10, 0.5)),
                 url('/images/subzoomed.png');">
         <a href="/">
             <img id="logo-desktop" src="/images/logo-header.png" class="logo" />
@@ -18,51 +24,13 @@
         <nav class="navbar navbar-custom navbar-expand">
             <div class="container-fluid justify-content-center">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link @if(Route::is('index')) active @endif" href="{{ route('index') }}">
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->is('blog')) active @endif" href="{{ route('posts.list', ['postType' => 'blog']) }}">
-                            Blog
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(Route::is('downloads')) active @endif" href="{{ route('downloads') }}">
-                            Downloads
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->is('tutorials')) active @endif" href="{{ route('posts.list', ['postType' => 'tutorials']) }}">
-                            Tutorials
-                        </a>
-                    </li>
-                    @php
-                        $galleries = \App\Models\Post::whereHas('postType', function ($query) {
-                            $query->where('post_template_enum', \App\Enums\EnumPostTemplates::Gallery);
-                        })->get();
-                    @endphp
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Images
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            @foreach($galleries as $gallery)
-                                <li><a class="dropdown-item nav-link" href="{{route('posts.view', ['postType' => $gallery->postType, 'post' => $gallery])}}">{{$gallery->title}}</a></li>
-                            @endforeach
-                        </ul>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->is('videos')) active @endif" href="{{ route('posts.list', ['postType' => 'videos']) }}">
-                            Videos
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('index') }}" active="{{ request()->routeIs('index') }}">
-                            Wiki
-                        </a>
-                    </li>
+                    <x-navigation.list-item :route="route('index')" title="Home"/>
+                    <x-navigation.list-item :route="route('posts.list', ['postType' => 'blog'])" title="Blog" request="blog"/>
+                    <x-navigation.list-item :route="route('downloads')" title="Download"/>
+                    <x-navigation.list-item :route="route('downloads')" title="Report a Bug"/>
+                    <x-navigation.list-item :route="route('downloads')" title="Tutorials"/>
+                    <x-navigation.list-item title="Galleries" :dropdown="true" :dropdown_items="$galleries" :include_infographics="true"/>
+                    <x-navigation.list-item :route="route('downloads')" title="Wiki"/>
                 </ul>
             </div>
         </nav>

@@ -2,18 +2,16 @@
 
 namespace App\Services;
 
-use App\Models\Post;
-use Illuminate\Support\Carbon;
+use App\Models\Infographic;
 
 class RandomInfographicService
 {
 
     public function getRandomInfographic() {
-        $post = Post::where('slug', 'infographics')->first();
-        $media = $post->galleryItems()->get();
-        $infographics = $media->pluck('image_path')->all();
-        $key = array_rand($infographics);
-        return $infographics[$key];
+        $infographics = Infographic::all();
+        $array = $infographics->pluck('url')->toArray();
+        $key = array_rand($array);
+        return $array[$key];
     }
 
 }

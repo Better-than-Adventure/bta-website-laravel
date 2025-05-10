@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\PostType;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -55,7 +56,7 @@ class PostController extends Controller
 
     public function deleteMedia(Post $post, GalleryItem $galleryItem)
     {
-
+        Storage::disk('public')->delete("images/content/{$post->slug}/media/{$galleryItem->image_path}");
         $galleryItem->delete();
 
         return redirect()->back();
@@ -172,11 +173,10 @@ class PostController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Post $post)
     {
-        //
+        $post->tags()->detach();
+        Storage::disk('public')->deleteDirectory("images/content/{$post->slug}");
+        $post->delete();
     }
 }

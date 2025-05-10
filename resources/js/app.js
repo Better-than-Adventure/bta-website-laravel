@@ -17,6 +17,4 @@ Alpine.start();
 
 window.Alpine = Alpine;
 
-
-
 const tagInput = UseBootstrapTag(document.getElementById('tagInput'))

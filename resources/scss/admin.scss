@@ -1,0 +1,140 @@
+@import "theme/colors";
+@import "~bootstrap/scss/functions";
+
+$bs-btn-color: $accent;
+$bs-btn-hover-color: $accent-active;
+$link-color: $accent;
+$link-hover-color: $accent-highlight;
+
+$body-bg: $black-lighter;
+$border-color: $black-lightest;
+
+$body-secondary-bg: $accent-highlight;
+$body-tertiary-color: $color-bright;
+$body-tertiary-bg: $accent;
+
+$body-color: $color-bright;
+
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/bootstrap";
+@import "~easyMDE/dist/easymde.min.css";
+
+// DataTables
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
+@import "datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css";
+@import 'datatables.net-select-bs5/css/select.bootstrap5.css';
+
+.form-floating {
+    label {
+        color: rgba($white, 0.65) !important;
+    }
+}
+
+.form-control:focus{
+    border-color: #5aa938 !important;
+    box-shadow: 0 0 0 0.25rem rgba(89, 168, 56, 0.25) !important;
+}
+
+a,
+a:link {
+    text-decoration: inherit;
+    font-weight: bold;
+    &:hover,
+    &:active {
+        text-decoration: none;
+    }
+}
+
+a:active {
+    color: $accent-active;
+}
+
+.header{
+    padding: 16px;
+    background: $black-dark;
+    border-bottom: $accent solid 3px;
+    img {
+        height: 30px;
+        margin-right: 1rem;
+    }
+}
+
+body {
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
+    background-color: $black;
+    color: $color-bright;
+    font-family: Roboto, -apple-system, BlinkMacSystemFont, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-size: 14px;
+}
+
+.admin-container {
+    border: $black-lighter 1px solid;
+    border-radius: 8px;
+    background: $black-light;
+    .head {
+        display: flex;
+        align-items: center;
+        border-radius: 8px 8px 0 0;
+        background: $accent;
+        padding: 8px 16px;
+        font-weight: bold;
+        h1 {
+            font-size: 20px;
+            margin-bottom: 0;
+        }
+    }
+    .admin-nav-item {
+
+        border-top: $black-lighter 1px solid;
+        width: 100%;
+
+        a {
+            display: block;
+            padding: 8px 16px;
+        }
+    }
+}
+
+.editor-toolbar {
+    border-top: 1px solid #605c61;
+    border-left: 1px solid #605c61;
+    border-right: 1px solid #605c61;
+    button {
+        color: rgba(255, 255, 255, 0.65);
+        &:hover {
+            background: $accent;
+        }
+        &.active {
+            background: none;
+            border: $accent 2px solid;
+        }
+    }
+
+    i.separator {
+        border-left: 1px solid rgba(255, 255, 255, 0.65);
+        border-right: 1px solid rgba(19, 19, 19, 0.65);
+    }
+    &.fullscreen {
+        background: $black-dark;
+    }
+}
+
+
+.EasyMDEContainer .CodeMirror {
+    border: 1px solid #605c61;
+    background: $black-lighter;
+    color: $color-bright;
+    text-shadow: none;
+}
+
+.editor-preview, .editor-preview-side {
+    background: $black;
+    border-color: $black-lightest;
+}
+
+.cm-s-easymde .cm-link {
+    color: $accent;
+}

@@ -51,8 +51,6 @@ class Post extends Model implements Feedable
         return URL::route('posts.view', ['postType' => $this->postType, 'post' => $this]);
     }
 
-
-
     public function getFormattedTagsAttribute(): string
     {
         return $this->tags()->implode('name', ',');

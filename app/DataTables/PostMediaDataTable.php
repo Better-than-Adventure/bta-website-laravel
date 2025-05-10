@@ -2,10 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Enums\EnumPostTemplates;
 use App\Models\GalleryItem;
-use App\Models\Post;
-use App\Models\PostType;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;

@@ -37,42 +37,44 @@
 
             </div>
             <div class="col-md-3">
-                <div class="card mb-3">
-                    <h5 class="card-header">Media</h5>
-                    @if($post->exists && filled($post->header_image_url))
-                    <img src="{{asset('images/content/'.$post->slug.'/header/'.$post->header_image_url)}}" style="height: 200px; object-fit:cover;" class="card-img-top" alt="...">
-                    @endif
-                    <div class="card-body">
-                        <input type="file" id="header" name="header" class="mb-3">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" name="video_code" value="{{old('video', $post->video)}}">
-                            <label for="floatingInput">Video code</label>
+                <x-admin-container title="Media" width="250">
+                    <div class="p-3">
+                        @if($post->exists && filled($post->header_image_url))
+                            <img src="{{asset('images/content/'.$post->slug.'/header/'.$post->header_image_url)}}" style="height: 200px; object-fit:cover;" class="card-img-top mb-3">
+                        @endif
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="header" class="form-label">Header Image</label>
+                                <input class="form-control" type="file" id="header" name="header">
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" name="video_code" value="{{old('video', $post->video)}}">
+                                <label for="floatingInput">Video code</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card mb-3">
-                    <h5 class="card-header">Meta</h5>
-                    <div class="card-body">
+                </x-admin-container>
+                <x-admin-container title="Meta" width="250">
+                    <div class="p-3">
                         <p class="card-text"><span>Post Type:</span>
-                        <select name="post_type" class="form-select">
-                            @foreach($postTypeQuery->get() as $postType)
-                                <option value="{{$postType->id}}" @if($post->exists && $post->postType?->id == $postType->id) selected @endif>{{$postType->name}}</option>
-                            @endforeach
-                        </select>
+                            <select name="post_type" class="form-select">
+                                @foreach($postTypeQuery->get() as $postType)
+                                    <option value="{{$postType->id}}" @if($post->exists && $post->postType?->id == $postType->id) selected @endif>{{$postType->name}}</option>
+                                @endforeach
+                            </select>
                         <p class="card-text"><span>Tags:</span>
-                        <input type="text" class="form-control" @if($post->exists) value="{{$post->formatted_tags}}" @endif name="tags" id="tagInput" placeholder="No tags assigned."/>
+                            <input type="text" class="form-control" @if($post->exists) value="{{$post->formatted_tags}}" @endif name="tags" id="tagInput" placeholder="No tags assigned."/>
                     </div>
-                </div>
-                <div class="card mb-3">
-                    <h5 class="card-header">Publish</h5>
-                    <div class="card-body">
-                            <div class="card-text mb-3"><span>Current Status: </span>@if($post->exists){!! $post->status !!}@else draft @endif</div>
+                </x-admin-container>
+                <x-admin-container title="Publish" width="250">
+                    <div class="p-3">
+                        <div class="card-text mb-3"><span>Current Status: </span>@if($post->exists){!! $post->status !!}@else draft @endif</div>
                         <div class="card-text">Schedule post to go live at:</div>
                         <input class="form-control"
-                            type="datetime-local"
-                            id="publish-date"
-                            name="publish_at"
-                            value="{{old('published_at', $post->published_at)}}"/>
+                               type="datetime-local"
+                               id="publish-date"
+                               name="publish_at"
+                               value="{{old('published_at', $post->published_at)}}"/>
                         <hr/>
                         <div>
                             @if(!$post->exists || $post->is_draft)
@@ -83,7 +85,7 @@
                             @endif
                         </div>
                     </div>
-                </div>
+                </x-admin-container>
             </div>
         </form>
     </div>

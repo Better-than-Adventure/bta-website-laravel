@@ -10,29 +10,44 @@
         <!-- Fonts -->
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/scss/bootstrap.scss', 'resources/js/app.js', 'resources/js/simpleMDE.js'])
+        @vite(['resources/css/app.css', 'resources/scss/admin.scss', 'resources/js/app.js', 'resources/js/simpleMDE.js'])
     </head>
     <body>
-        <main class="container-fluid">
-            <div class="row">
-                <div class="d-flex flex-column sidebar vh-100 p-3 text-white bg-dark" style="width: 280px;">
-                    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                        <span class="fs-4">BTA Admin</span>
-                    </a>
-                    <hr>
-                    <ul class="nav nav-pills flex-column mb-auto">
+        <div class="header mb-3">
+            <div class="container-fluid">
+                @if(Auth::user())
+                    <div style="right: 0; top: 0" class="position-absolute me-3 mt-2">
+                        <span> {{ Auth::user()->name }} |</span>
+                        <span>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Sign Out
+                            </a>
+                        </span>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </div>
+                @endif
+                <img src="/images/admin-logo.png" alt="bta! admin"/>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="d-flex">
+                <div>
+                    <x-admin-container title="Contents" width="250">
                         <x-admin-menu-item label="Pages" :route="route('admin.posts')" />
                         <x-admin-menu-item label="Articles" :route="route('admin.posts', ['type' => 'blog'])" />
                         <x-admin-menu-item label="Galleries" :route="route('admin.posts', ['type' => 'gallery'])" />
-                    </ul>
-                    <hr>
-                    <x-admin-user-menu/>
+                        <x-admin-menu-item label="Infographics" :route="route('admin.infographics')" />
+                    </x-admin-container>
                 </div>
-                <div class="col-md admin-container pt-3 px-4">
-                    {{ $slot }}
-                </div>
+
+                    <div class="m-3" style="width: 100%; height: 100%">
+                        {{ $slot }}
+                    </div>
+
             </div>
-        </main>
+        </div>
         @stack('scripts')
     </body>
 </html>
