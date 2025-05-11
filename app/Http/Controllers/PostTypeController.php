@@ -15,9 +15,18 @@ class PostTypeController extends Controller
      */
     public function list(PostType $postType)
     {
+        $query = Post::where('post_type_id', $postType->id)
+            ->where('published_at', '<=', Carbon::now());
 
-        $posts = Post::where('post_type_id', $postType->id)
-            ->where('published_at', '<=', Carbon::now())
+        $tag = request()->get('tag');
+
+        if($tag) {
+            $query = $query->whereHas('tags', function($q) use ($tag) {
+                $q->where('tags.slug', $tag);
+            });
+        }
+
+        $posts = $query
             ->orderBy('published_at', 'desc')
             ->paginate(10);
         return view('posts.list')->with(compact('posts', 'postType'));

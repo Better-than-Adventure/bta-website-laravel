@@ -11,7 +11,7 @@
         "lorisleiva/laravel-actions": "^2.8",
         "spatie/laravel-feed": "^4.4",
         "spatie/laravel-markdown": "^2.5",
-        "spatie/laravel-permission": "^6.10",
+        "spatie/laravel-permission": "^6.17",
         "tinymce/tinymce": "^7.2",
         "yajra/laravel-datatables": "11.0"
     },
