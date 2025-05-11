@@ -1,5 +1,5 @@
 <x-layout.basic>
-    <h2 class="mb-5 text-center">Login to Admin Portal</h2>
+    <h2 class="mb-5 text-center">Login to BTA! Workbench</h2>
     <form method="POST" action="{{ route('login') }}">
         @csrf
         <!-- Email Address -->

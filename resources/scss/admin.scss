@@ -99,9 +99,16 @@ a:active {
     }
 }
 
+html {
+    min-height: 100%;
+    height: auto;
+}
+
 body {
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
-    background-color: $black;
+    background-size: cover;
+    min-height: 100%;
+    height: auto;
     color: $color-bright;
     font-family: Roboto, -apple-system, BlinkMacSystemFont, Oxygen, Ubuntu,
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -140,6 +147,7 @@ body {
     border-top: 1px solid #605c61;
     border-left: 1px solid #605c61;
     border-right: 1px solid #605c61;
+    background: $black-dark;
     button {
         color: rgba(255, 255, 255, 0.65);
         &:hover {

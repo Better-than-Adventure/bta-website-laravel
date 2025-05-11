@@ -12,7 +12,7 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/scss/admin.scss', 'resources/js/app.js', 'resources/js/simpleMDE.js'])
     </head>
-    <body>
+    <body style="background-image: linear-gradient( rgba(41, 40, 42, 0.5) 0%, rgb(10, 10, 10, .85) 50%), url('/images/subzoomed.png');">
         <div class="header mb-3">
             <div class="container-fluid">
                 @if(Auth::user())
@@ -28,7 +28,7 @@
                         </form>
                     </div>
                 @endif
-                <img src="/images/admin-logo.png" alt="bta! admin"/>
+                <img src="/images/admin-logo.png" alt="Better than Adventure! Workbench"/>
             </div>
         </div>
         <div class="container-fluid">
