@@ -42,7 +42,7 @@ class PostsDataTable extends DataTable
                 return $column->status;
             })
             ->addColumn('published_at', function($column) {
-                return Carbon::parse($column->published_at)->format('d M Y h:i');
+                return Carbon::parse($column->published_at)->format('d M Y H:i');
             })
             ->addColumn('created_at', function($column) {
                 return Carbon::parse($column->created_at)->format('d M Y');
