@@ -6,7 +6,7 @@
 
 <div id="header-desktop">
     <div class="header d-flex justify-content-center" style="
-                background-image: linear-gradient( rgba(41, 40, 42, 0.5) 50%,  rgba(10, 10, 10, 0.5)),
+                background-image: linear-gradient( rgba(41, 40, 42, 0.0) 50%,  rgba(10, 10, 10, 0.5)),
                 url('/images/subzoomed.png');">
         <a href="/">
             <img id="logo-desktop" src="/images/logo-header.png" class="logo" />

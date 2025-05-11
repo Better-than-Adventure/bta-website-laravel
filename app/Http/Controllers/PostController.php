@@ -13,6 +13,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class PostController extends Controller
 {
@@ -166,10 +167,21 @@ class PostController extends Controller
             'header' => 'nullable|image|mimes:jpeg,jpg,png,gif'
         ]);
 
+        $slug = Str::slug($validated['title']);
+
+        $query = Post::where('slug', $slug);
+        if($post->exists())
+            $query = $query->whereNot('id', $post->id);
+
+        if( $query->exists()) {
+            throw ValidationException::withMessages(['title' => 'A post with the same title (or snake_case slug!) already exists.']);
+        }
+
+
         $post->fill($validated);
 
-        if(!$post->slug){
-            $post->slug = Str::slug($post->title);
+        if($slug){
+            $post->slug = $slug;
         }
 
         if($request->input('action') != "draft")
