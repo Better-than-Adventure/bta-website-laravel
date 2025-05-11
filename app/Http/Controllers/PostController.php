@@ -10,9 +10,7 @@ use App\Models\Post;
 use App\Models\PostType;
 use App\Models\Tag;
 use Auth;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Cookie;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -70,7 +68,7 @@ class PostController extends Controller
             'post_id' => $post->id,
         ]);
 
-        return redirect()->back();
+        return back();
 
     }
 
@@ -83,7 +81,7 @@ class PostController extends Controller
         Storage::disk('public')->delete("images/content/{$post->slug}/media/{$galleryItem->image_path}");
         $galleryItem->delete();
 
-        return redirect()->back();
+        return back();
 
     }
 
@@ -128,7 +126,7 @@ class PostController extends Controller
 
 
         $this->storeAndUpdate($request, new Post);
-        return redirect(route('admin.posts'));
+        return back();
 
     }
 
@@ -157,7 +155,7 @@ class PostController extends Controller
         $post = Post::findOrFail($post->id);
         $this->storeAndUpdate($request, $post);
 
-        return redirect(route('admin.posts'));
+        return back();
     }
 
     /**
@@ -243,5 +241,7 @@ class PostController extends Controller
         $post->tags()->detach();
         Storage::disk('public')->deleteDirectory("images/content/{$post->slug}");
         $post->delete();
+
+        return back();
     }
 }
