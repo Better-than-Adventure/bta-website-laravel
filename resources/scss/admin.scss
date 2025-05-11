@@ -1,13 +1,6 @@
 @import "theme/colors";
 @import "~bootstrap/scss/functions";
 
-$theme-colors: (
-    "primary":    $accent,
-    "secondary":  $accent,
-    "success":  $success,
-    "danger":  $danger,
-);
-
 $link-color: $accent;
 $link-hover-color: $accent-highlight;
 

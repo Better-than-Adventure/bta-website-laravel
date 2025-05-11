@@ -13,3 +13,10 @@ $accent-highlight: #86c553;
 
 $success: #44ff00;
 $danger: #ff4136;
+
+$theme-colors: (
+    "primary":    $accent,
+    "secondary":  $accent,
+    "success":  $success,
+    "danger":  $danger,
+);

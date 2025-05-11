@@ -29,14 +29,16 @@ Route::middleware('auth')->group(function () {
             Route::post('media/{post}/{galleryItem}', [PostController::class, 'deleteMedia'])->name('admin.posts.media-delete');
         });
 
-        Route::prefix('/users')->group(function () {
-            Route::get('/', [AdminUserController::class, 'index'])->name('admin.users');
-            Route::get('create', [AdminUserController::class, 'create'])->name('admin.users.create');
-            Route::post('store', [AdminUserController::class, 'store'])->name('admin.users.store');
-            Route::get('edit/{user}', [AdminUserController::class, 'edit'])->name('admin.users.edit');
-            Route::post('update/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
-            Route::post('delete/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
-            Route::post('request-password-change/{user}', [AdminUserController::class, 'requestPasswordChange'])->name('admin.users.request-password-change');
+        Route::group(['middleware' => ['role:admin']], function () {
+            Route::prefix('/users')->group(function () {
+                Route::get('/', [AdminUserController::class, 'index'])->name('admin.users');
+                Route::get('create', [AdminUserController::class, 'create'])->name('admin.users.create');
+                Route::post('store', [AdminUserController::class, 'store'])->name('admin.users.store');
+                Route::get('edit/{user}', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+                Route::post('update/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
+                Route::post('delete/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+                Route::post('request-password-change/{user}', [AdminUserController::class, 'requestPasswordChange'])->name('admin.users.request-password-change');
+            });
         });
 
         Route::prefix('/infographics')->group(function () {
