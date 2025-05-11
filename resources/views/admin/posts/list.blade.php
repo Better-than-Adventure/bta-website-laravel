@@ -10,7 +10,9 @@
         <h2>{{Str::plural(Str::title($title))}}</h2>
         <hr/>
         @can('posts.create')
-            <a class="btn btn-primary" href="{{route('admin.posts.create', ['type' => $type ?? null])}}">New {{Str::title($title)}}</a>
+            @if($type != 'homepage')
+                <a class="btn btn-primary" href="{{route('admin.posts.create', ['type' => $type ?? null])}}">New {{Str::title($title)}}</a>
+           @endif
         @endcan
         {{ $dataTable->table() }}
     </div>

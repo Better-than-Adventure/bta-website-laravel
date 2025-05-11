@@ -3,8 +3,13 @@
 @php
     $type = request()->get('type') ?? null;
     $postTypeQuery = \App\Models\PostType::query();
-    if($type === 'gallery'){
-        $postTypeQuery = \App\Models\PostType::where('post_template_enum', \App\Enums\EnumPostTemplates::Gallery);
+    switch($type){
+        case 'gallery':
+            $postTypeQuery = \App\Models\PostType::where('post_template_enum', \App\Enums\EnumPostTemplates::Gallery);
+            break;
+        default:
+            $postTypeQuery = \App\Models\PostType::where('slug', $type ?? 'page');
+            break;
     }
 @endphp
 

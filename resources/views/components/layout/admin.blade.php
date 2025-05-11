@@ -36,6 +36,7 @@
                 <div>
                     <x-admin-container title="Contents" width="250">
                         @can('posts.view')
+                            <x-admin-menu-item label="Homepage" :route="route('admin.posts', ['type' => 'homepage'])" />
                             <x-admin-menu-item label="Pages" :route="route('admin.posts')" />
                             <x-admin-menu-item label="Articles" :route="route('admin.posts', ['type' => 'blog'])" />
                             <x-admin-menu-item label="Galleries" :route="route('admin.posts', ['type' => 'gallery'])" />

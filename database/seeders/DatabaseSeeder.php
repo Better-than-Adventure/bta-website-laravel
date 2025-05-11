@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\EnumPostTemplates;
+use App\Models\Post;
 use App\Models\PostType;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -46,11 +47,21 @@ class DatabaseSeeder extends Seeder
 
         $user->assignRole('admin');
 
-        PostType::create(['name' => 'Home', 'slug' => 'homepage', 'post_template_enum' => EnumPostTemplates::Page]);
+        $home = PostType::create(['name' => 'Homepage', 'slug' => 'homepage', 'post_template_enum' => EnumPostTemplates::Page]);
         PostType::create(['name' => 'Blog', 'slug' => 'blog', 'post_template_enum' => EnumPostTemplates::Article]);
         PostType::create(['name' => 'Page', 'slug' => 'page', 'post_template_enum' => EnumPostTemplates::Page]);
         PostType::create(['name' => 'Photos', 'slug' => 'photos', 'post_template_enum' => EnumPostTemplates::Gallery]);
         PostType::create(['name' => 'Videos', 'slug' => 'videos', 'post_template_enum' => EnumPostTemplates::Gallery]);
+
+        Post::create([
+            'title' => 'Homepage',
+            'slug' => 'homepage',
+            'summary' => '',
+            'content' => '',
+            'published_at' => now(),
+            'author_id' => $user->id,
+            'post_type_id' => $home->id
+        ]);
     }
 
     protected function createCrudPermissions(string $model_name, array $crud = ['view', 'edit', 'create', 'delete']): void {

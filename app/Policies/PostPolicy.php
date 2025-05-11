@@ -28,6 +28,9 @@ class PostPolicy
      */
     public function create(User $user): bool
     {
+        if(request()->get('type') == 'homepage')
+            return false;
+
         return $user->can('posts.create');
     }
 
@@ -47,6 +50,9 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
+        if($post->postType->slug == 'homepage')
+            return false;
+
         if($user->can('posts.delete'))
             return true;
 

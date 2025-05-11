@@ -59,14 +59,14 @@ class PostsDataTable extends DataTable
     {
         $query = $model->newQuery();
 
-        switch ($this->filter){
-            case('blog'):
-                $query = $query->whereHas('postType', function ($query) { $query->where('slug', 'blog'); });
-                break;
-            case('gallery'):
-                $query = $query->whereHas('postType', function ($query) { $query->where('post_template_enum', EnumPostTemplates::Gallery); });
-                break;
-        }
+        $query = match ($this->filter) {
+            'gallery' => $query->whereHas('postType', function ($query) {
+                $query->where('post_template_enum', EnumPostTemplates::Gallery);
+            }),
+            default => $query->whereHas('postType', function ($query) {
+                $query->where('slug', $this->filter ?? 'page');
+            }),
+        };
 
         return $query;
     }
