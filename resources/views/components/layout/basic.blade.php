@@ -10,11 +10,11 @@
     <!-- Fonts -->
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/scss/bootstrap.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/scss/admin.scss', 'resources/js/app.js'])
 </head>
-<body class="h-100">
+<body class="h-100" style="background-image: linear-gradient( rgba(41, 40, 42, 0.0) 0%, rgba(10, 10, 10, .75) 50%), url('/images/subzoomed.png'); background-size: cover">
     <div class=" d-flex justify-content-center align-items-center h-100">
-        <div class="card px-4 py-5" style="max-width: 400px;">
+        <div class="card shadow-sm px-4 py-5" style="max-width: 400px;">
             <div class="card-body">
                 <div class="d-flex justify-content-center mb-1">
                     <img src="/images/admin-logo.png" alt="bta! admin"/>

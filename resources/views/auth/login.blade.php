@@ -7,7 +7,6 @@
         <!-- Password -->
         <x-form.input name="password" class="mb-3" type="password" for="password" :required="true" label="Password"/>
         <!-- Forgotten & Remember Me -->
-        <a class="mb-3" href="{{ route('password.request') }}">Forgot password?</a>
         <x-form.checkbox id="remember" name="remember" label="Remember me"/>
         <!-- Submit -->
         <button type="submit" class="btn btn-primary w-100 mt-3">Login</button>

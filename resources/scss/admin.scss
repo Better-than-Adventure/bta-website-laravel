@@ -54,6 +54,18 @@ $body-color: $color-bright;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
 }
 
+.form-check-input {
+    &:focus {
+        border-color: $accent !important;
+        box-shadow: 0 0 0 0.25rem rgba(89, 168, 56, 0.25) !important;
+    }
+    &:checked {
+        background-color: #5aa938;
+        border-color: #5aa938;
+    }
+
+}
+
 a,
 a:link {
     text-decoration: inherit;
