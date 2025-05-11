@@ -35,10 +35,18 @@
             <div class="d-flex">
                 <div>
                     <x-admin-container title="Contents" width="250">
-                        <x-admin-menu-item label="Pages" :route="route('admin.posts')" />
-                        <x-admin-menu-item label="Articles" :route="route('admin.posts', ['type' => 'blog'])" />
-                        <x-admin-menu-item label="Galleries" :route="route('admin.posts', ['type' => 'gallery'])" />
-                        <x-admin-menu-item label="Infographics" :route="route('admin.infographics')" />
+                        @can('posts.view')
+                            <x-admin-menu-item label="Pages" :route="route('admin.posts')" />
+                            <x-admin-menu-item label="Articles" :route="route('admin.posts', ['type' => 'blog'])" />
+                            <x-admin-menu-item label="Galleries" :route="route('admin.posts', ['type' => 'gallery'])" />
+                        @endcan
+                        @can('infographics.view')
+                            <x-admin-menu-item label="Infographics" :route="route('admin.infographics')" />
+                        @endcan
+                    </x-admin-container>
+
+                    <x-admin-container title="Admin" width="250">
+                        <x-admin-menu-item label="User Management" :route="route('admin.users')" />
                     </x-admin-container>
                 </div>
 

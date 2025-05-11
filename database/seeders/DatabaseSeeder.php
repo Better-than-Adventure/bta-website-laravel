@@ -23,26 +23,19 @@ class DatabaseSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        $this->createCrudPermissions('pages');
-        $this->createCrudPermissions('articles');
-        $this->createCrudPermissions('galleries');
+        $this->createCrudPermissions('posts');
         $this->createCrudPermissions('infographics', ['view', 'create', 'delete']);
 
 
         $role = Role::create(['name' => 'admin']);
-        $role->givePermissionTo(['pages.create', 'pages.edit', 'pages.delete', 'pages.view']);
-        $role->givePermissionTo(['articles.create', 'articles.edit', 'articles.delete', 'articles.view']);
-        $role->givePermissionTo(['galleries.create', 'galleries.edit', 'galleries.delete', 'galleries.view']);
+        $role->givePermissionTo(['posts.create', 'posts.edit', 'posts.delete', 'posts.view']);
         $role->givePermissionTo(['infographics.create', 'infographics.delete', 'infographics.view']);
 
         $role = Role::create(['name' => 'writer']);
-        $role->givePermissionTo(['pages.create', 'pages.edit', 'pages.delete', 'pages.view']);
-        $role->givePermissionTo(['articles.create', 'articles.edit', 'articles.delete', 'articles.view']);
-        $role->givePermissionTo(['galleries.create', 'galleries.edit', 'galleries.delete', 'galleries.view']);
+        $role->givePermissionTo(['posts.create', 'posts.edit', 'posts.delete', 'posts.view']);
 
         $role = Role::create(['name' => 'artist']);
-        $role->givePermissionTo(['articles.create', 'articles.edit', 'articles.delete', 'articles.view']);
-        $role->givePermissionTo(['galleries.create', 'galleries.edit', 'galleries.delete', 'galleries.view']);
+        $role->givePermissionTo(['posts.create', 'posts.edit', 'posts.delete', 'posts.view']);
         $role->givePermissionTo(['infographics.create', 'infographics.delete', 'infographics.view']);
 
         $user = User::factory()->create([

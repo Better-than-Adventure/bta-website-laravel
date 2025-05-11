@@ -9,6 +9,7 @@ use App\Models\GalleryItem;
 use App\Models\Post;
 use App\Models\PostType;
 use App\Models\Tag;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -21,6 +22,10 @@ class PostController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->cannot('viewAny', Post::class)) {
+            abort(403);
+        }
+
         $type = request()->get('type');
         $postsDataTable = new PostsDataTable($type);
         return $postsDataTable->render('admin.posts.list', ['type' => $type]);
@@ -28,12 +33,24 @@ class PostController extends Controller
 
     public function media(PostType $postType, Post $post)
     {
+        if (Auth::user()->cannot('view', $post)) {
+            abort(403);
+        }
+
         $dataTable = new PostMediaDataTable($post->id);
         return $dataTable->render('admin.posts.media', ['post' => $post]);
     }
 
     public function storeMedia(Request $request, Post $post)
     {
+        if (Auth::user()->cannot('create', Post::class)) {
+            abort(403);
+        }
+
+        if (Auth::user()->cannot('update', $post)) {
+            abort(403);
+        }
+
         $validated = $request->validate([
             'description' => 'string|nullable',
             'media' => 'nullable|file|mimes:jpeg,jpg,png,gif,mp4'
@@ -56,6 +73,10 @@ class PostController extends Controller
 
     public function deleteMedia(Post $post, GalleryItem $galleryItem)
     {
+        if (Auth::user()->cannot('update', $post)) {
+            abort(403);
+        }
+
         Storage::disk('public')->delete("images/content/{$post->slug}/media/{$galleryItem->image_path}");
         $galleryItem->delete();
 
@@ -81,6 +102,10 @@ class PostController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->cannot('create', Post::class)) {
+            abort(403);
+        }
+
         $post = new Post;
         return view('admin.posts.create-edit')->with(compact('post'));
     }
@@ -90,6 +115,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::user()->cannot('create', Post::class)) {
+            abort(403);
+        }
+
+
         $this->storeAndUpdate($request, new Post);
         return redirect(route('admin.posts'));
 
@@ -100,6 +130,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if (Auth::user()->cannot('update', $post)) {
+            abort(403);
+        }
+
         $post = Post::findOrFail($post->id);
         return view('admin.posts.create-edit')->with(compact('post'));
     }
@@ -109,6 +143,10 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        if ($request->user()->cannot('update', $post)) {
+            abort(403);
+        }
+
         $post = Post::findOrFail($post->id);
         $this->storeAndUpdate($request, $post);
 
@@ -175,6 +213,10 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        if (Auth::user()->cannot('delete', $post)) {
+            abort(403);
+        }
+
         $post->tags()->detach();
         Storage::disk('public')->deleteDirectory("images/content/{$post->slug}");
         $post->delete();

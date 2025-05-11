@@ -9,7 +9,9 @@
     <div>
         <h2>{{Str::plural(Str::title($title))}}</h2>
         <hr/>
-        <a class="btn btn-primary" href="{{route('admin.posts.create', ['type' => $type ?? null])}}">New {{Str::title($title)}}</a>
+        @can('posts.create')
+            <a class="btn btn-primary" href="{{route('admin.posts.create', ['type' => $type ?? null])}}">New {{Str::title($title)}}</a>
+        @endcan
         {{ $dataTable->table() }}
     </div>
     @push('scripts')
