@@ -140,6 +140,10 @@ body {
             display: block;
             padding: 8px 16px;
         }
+
+        &.active {
+            background: $black-lighter;
+        }
     }
 }
 
@@ -212,6 +216,18 @@ body {
  }
 
 .alert {
+    border-radius: 0;
+    color: $color-bright;
+    background: $black-dark;
+    border-left: $accent 4px solid;
+
+    &.alert-danger {
+        border: none;
+        border-left: $red 4px solid !important;
+    }
+}
+
+.alert-box {
     border-radius: 0;
     color: $color-bright;
     background: $black-dark;

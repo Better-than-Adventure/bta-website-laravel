@@ -16,7 +16,14 @@
             <div class="col-md-12">
                 <x-form.input class="mb-3" label="Username" name="name" required="true" value="{{old('name', $user->name)}}" placeholder="Enter Username"/>
                 <x-form.input class="mb-3" label="Email Address" type="email" name="email" required="true" value="{{old('email', $user->email)}}" placeholder="Enter Email Address"/>
-                <button type="submit" name="action" class="btn btn-primary">Register User</button>
+                @php
+                    $roles = \Spatie\Permission\Models\Role::all();
+                @endphp
+                <div>Manage Roles</div>
+                @foreach($roles as $role)
+                    <x-form.checkbox id="role-{{$role->id}}" value="{{$role->id}}" checked="{{$user->hasRole($role->name) ?? false}}" name="roles[]" label="{{$role->name}}"/>
+                @endforeach
+                <button type="submit" name="action" class="btn btn-primary mt-3">Register User</button>
             </div>
         </form>
     </div>

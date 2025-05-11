@@ -28,13 +28,22 @@ class AdminUserController extends Controller
         $validated = $request->validate([
             'email' => 'required|email|unique:users,email',
             'name' => 'required|max:255|unique:users,name',
+            'roles' => 'required',
+            'roles.*' => 'required|max:255|exists:roles,id',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Str::random(),
         ]);
+
+        $roles = $validated['roles'];
+        $user->roles()->detach();
+
+        foreach ($roles as $role) {
+            $user->roles()->attach($role);
+        }
 
         return redirect(route('admin.users'));
 
@@ -58,6 +67,8 @@ class AdminUserController extends Controller
         $validated = $request->validate([
             'email' => 'required|email|unique:users,email,'.$user->id,
             'name' => 'required|max:255|unique:users,name,'.$user->id,
+            'roles' => 'required',
+            'roles.*' => 'required|max:255|exists:roles,id',
         ]);
 
         $user = User::findOrFail($user->id);
@@ -66,6 +77,14 @@ class AdminUserController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email']
         ]);
+
+        $roles = $validated['roles'];
+        $user->roles()->detach();
+
+        foreach ($roles as $role) {
+            $user->roles()->attach($role);
+        }
+
 
         return redirect(route('admin.users'));
     }

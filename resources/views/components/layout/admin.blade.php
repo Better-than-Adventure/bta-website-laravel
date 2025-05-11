@@ -44,16 +44,15 @@
                             <x-admin-menu-item label="Infographics" :route="route('admin.infographics')" />
                         @endcan
                     </x-admin-container>
-
-                    <x-admin-container title="Admin" width="250">
-                        <x-admin-menu-item label="User Management" :route="route('admin.users')" />
-                    </x-admin-container>
+                    @role('admin')
+                        <x-admin-container title="Admin" width="250">
+                            <x-admin-menu-item label="User Management" :route="route('admin.users')" />
+                        </x-admin-container>
+                    @endrole
                 </div>
-
-                    <div class="m-3" style="width: 100%; height: 100%">
-                        {{ $slot }}
-                    </div>
-
+                <div class="m-3" style="width: 100%; height: 100%">
+                    {{ $slot }}
+                </div>
             </div>
         </div>
         @stack('scripts')

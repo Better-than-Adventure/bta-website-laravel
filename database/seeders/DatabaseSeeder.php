@@ -46,9 +46,9 @@ class DatabaseSeeder extends Seeder
 
         $user->assignRole('admin');
 
-        PostType::create(['name' => 'Homepage', 'slug' => 'homepage', 'post_template_enum' => EnumPostTemplates::Page]);
+        PostType::create(['name' => 'Home', 'slug' => 'homepage', 'post_template_enum' => EnumPostTemplates::Page]);
         PostType::create(['name' => 'Blog', 'slug' => 'blog', 'post_template_enum' => EnumPostTemplates::Article]);
-        PostType::create(['name' => 'Tutorial', 'slug' => 'tutorials', 'post_template_enum' => EnumPostTemplates::Page]);
+        PostType::create(['name' => 'Page', 'slug' => 'page', 'post_template_enum' => EnumPostTemplates::Page]);
         PostType::create(['name' => 'Photos', 'slug' => 'photos', 'post_template_enum' => EnumPostTemplates::Gallery]);
         PostType::create(['name' => 'Videos', 'slug' => 'videos', 'post_template_enum' => EnumPostTemplates::Gallery]);
     }
