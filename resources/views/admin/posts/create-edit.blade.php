@@ -15,7 +15,11 @@
 
 <x-layout.admin>
     <div>
+        @if($post->exists)
+        <h2>Edit Post</h2>
+        @else
         <h2>Create New Post</h2>
+        @endif
         <hr/>
         @if($errors->any())
             <div class="alert alert-danger" role="alert">
@@ -69,6 +73,10 @@
                             </select>
                         <p class="card-text"><span>Tags:</span>
                             <input type="text" class="form-control" @if($post->exists) value="{{$post->formatted_tags}}" @endif name="tags" id="tagInput" placeholder="No tags assigned."/>
+                        @if((!$post->exists && $type == null) || ($post->exists() && $post->postType->slug == 'page'))
+                                <x-form.checkbox id="is_on_top_nav" :value="true" checked="{{$post->top_nav}}" name="is_on_top_nav" label="Should appear on top-level nav?"/>
+                        @endif
+
                     </div>
                 </x-admin-container>
                 <x-admin-container title="Publish" width="250">

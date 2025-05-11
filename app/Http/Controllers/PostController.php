@@ -10,7 +10,9 @@ use App\Models\Post;
 use App\Models\PostType;
 use App\Models\Tag;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Cookie;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -90,12 +92,16 @@ class PostController extends Controller
      */
     public function view(PostType $postType, Post $post)
     {
+        if ($post->published_at > now()) {
+            abort(404);
+        }
+
         if($postType->post_template_enum == EnumPostTemplates::Article)
-            return view('posts.article', compact('post'));
+            return response()->view('posts.article', compact('post'));
         else if($postType->post_template_enum == EnumPostTemplates::Gallery)
-            return view('posts.gallery', compact('post'));
+            return response()->view('posts.gallery', compact('post'));
         else
-            return view('posts.page', compact('post'));
+            return response()->view('posts.page', compact('post'));
     }
 
     /**
@@ -167,6 +173,8 @@ class PostController extends Controller
             'header' => 'nullable|image|mimes:jpeg,jpg,png,gif'
         ]);
 
+
+
         $slug = Str::slug($validated['title']);
 
         $query = Post::where('slug', $slug);
@@ -177,12 +185,15 @@ class PostController extends Controller
             throw ValidationException::withMessages(['title' => 'A post with the same title (or snake_case slug!) already exists.']);
         }
 
-
         $post->fill($validated);
 
         if($slug){
             $post->slug = $slug;
         }
+
+        if($request->get('is_on_top_nav'))
+            $post->top_nav = true;
+
 
         if($request->input('action') != "draft")
             $post->draft = false;

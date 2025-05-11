@@ -20,10 +20,10 @@
         </div>
         <a
             class="btn btn-block btn-primary btn-download"
-            href="{{$releaseData['client_instance']}}"
+            href="{{route('downloads')}}"
             role="button"
         >
-            MultiMC Instance
+            Download Links
         </a>
     </div>
 </div>

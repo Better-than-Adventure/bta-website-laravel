@@ -2,12 +2,12 @@
 <li @class(['nav-item', 'dropdown' => $include_infographics])>
 
     @if(!$dropdown)
-    <a class="nav-link @if(request()->is($request) || Route::is($route)) active @endif" href="{{ $route }}">
+    <a class="nav-link @if(request()->url() == $route) active @endif" href="{{ $route }}">
         {{$title}}
     </a>
     @else
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Images
+            {{$title}}
         </a>
 
         <ul class="dropdown-menu">

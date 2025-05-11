@@ -5,18 +5,21 @@
  ])
 
 @php
-    use App\Models\Post;
+    use App\Models\Post;use Illuminate\Support\Carbon;
 
     $posts = Post::whereHas('postType', function ($query) use($postTypes) {
         $query->whereIn('slug', $postTypes);
-     })->take($total)->orderBy('published_at', 'desc')->get()
+     })
+     ->where('published_at', '<=', Carbon::now())
+     ->take($total)->orderBy('published_at', 'desc')->get()
 @endphp
 
 
 <h2 class="pb-1">{{$title}}</h2>
 @foreach($posts as $post)
     <div class="d-flex px-0 pb-3">
-        <img src="{{asset('images/content/'.$post->slug.'/header/'.$post->header_image_url)}}" class="post-thumb"  alt=""/>
+        <img src="{{asset('images/content/'.$post->slug.'/header/'.$post->header_image_url)}}" class="post-thumb"
+             alt=""/>
         <div>
             <x-posts.post-meta :post="$post"/>
             <h4 class="post-title mt-0">{{$post->title}}</h4>

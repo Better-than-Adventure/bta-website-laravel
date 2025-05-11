@@ -125,4 +125,7 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'bug_report_site_url' => env('BUG_REPORT_SITE_URL'),
+    'wiki_url' => env('WIKI_URL'),
+
 ];

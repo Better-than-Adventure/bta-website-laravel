@@ -16,6 +16,10 @@ class Post extends Model implements Feedable
 {
     protected $fillable = ['title', 'summary', 'content'];
 
+    public function incrementReadCount() {
+        $this->read_count++;
+        return $this->save();
+    }
 
     public function getStatusAttribute(): string {
         $carbonPublishedAt = \Carbon\Carbon::parse($this->published_at);
@@ -38,6 +42,10 @@ class Post extends Model implements Feedable
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'post_tags');
+    }
+
+    public function getUrlAttribute(): string {
+        return config('app.url')."/{$this->postType->slug}/$this->slug";
     }
 
     public function galleryItems(): HasMany
