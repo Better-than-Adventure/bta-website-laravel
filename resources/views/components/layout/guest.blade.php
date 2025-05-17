@@ -20,6 +20,7 @@
             <div class="px-3 px-lg-0">
                 {{ $slot }}
             </div>
+            <x-layout.footer/>
         </div>
     </body>
 </html>

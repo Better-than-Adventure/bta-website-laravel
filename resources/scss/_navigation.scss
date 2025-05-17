@@ -33,13 +33,13 @@ $nav-link-hover-color: $accent-active;
 .mobile-menu {
     background-color: $black;
     border-bottom: $accent 4px solid;
-    .nav-link {
+    .nav-link, .nav-link:focus {
         color: $accent;
         &:hover {
             color: $accent-highlight;
         }
         &.active {
-            color: $white;
+            color: #FFF !important;
         }
     }
 }
