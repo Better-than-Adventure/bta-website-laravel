@@ -94,6 +94,8 @@ class PostController extends Controller
             abort(404);
         }
 
+        $post->visits()->increment();
+
         if($postType->post_template_enum == EnumPostTemplates::Article)
             return response()->view('posts.article', compact('post'));
         else if($postType->post_template_enum == EnumPostTemplates::Gallery)

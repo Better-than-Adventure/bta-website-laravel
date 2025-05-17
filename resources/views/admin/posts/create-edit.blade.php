@@ -1,7 +1,7 @@
 @props(['post'])
 
 @php
-    $type = request()->get('type') ?? null;
+    $type = $post->exists ? $post->postType->slug : request()->get('type') ?? null;
     $postTypeQuery = \App\Models\PostType::query();
     switch($type){
         case 'gallery':
@@ -73,7 +73,8 @@
                             </select>
                         <p class="card-text"><span>Tags:</span>
                             <input type="text" class="form-control" @if($post->exists) value="{{$post->formatted_tags}}" @endif name="tags" id="tagInput" placeholder="No tags assigned."/>
-                        @if((!$post->exists && $type == null) || ($post->exists() && $post->postType->slug == 'page'))
+
+                            @if(($type == null) || ($post->postType && $post->postType->slug == 'page'))
                                 <x-form.checkbox id="is_on_top_nav" :value="true" checked="{{$post->top_nav}}" name="is_on_top_nav" label="Should appear on top-level nav?"/>
                         @endif
 

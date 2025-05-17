@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\EnumPostTemplates;
+use Awssat\Visits\Visits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -74,6 +75,11 @@ class Post extends Model implements Feedable
             $query->where('post_template_enum', EnumPostTemplates::Article);
         })->where('published_at', '<=', Carbon::now())
             ->orderBy('published_at', 'desc')->get();
+    }
+
+    public function visits(): Visits
+    {
+        return visits($this);
     }
 
     public function toFeedItem(): FeedItem

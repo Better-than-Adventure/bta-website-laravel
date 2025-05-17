@@ -7,7 +7,12 @@
             <x-posts.post-tags :post="$post"/>
             <x-posts.post-meta :post="$post"/>
         </div>
+        <div class="d-flex justify-content-between">
         <h1 class="mb-3">{{$post->title}}</h1>
+        <div style="color: gray;">
+            Visits: {{$post->visits()->count()}}
+        </div>
+        </div>
         @if($post->video)
             <x-youtube-embed code="{{$post->video}}"/>
         @endif
