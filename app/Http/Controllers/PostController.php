@@ -178,7 +178,7 @@ class PostController extends Controller
         $slug = Str::slug($validated['title']);
 
         $query = Post::where('slug', $slug);
-        if($post->exists())
+        if($post->exists)
             $query = $query->whereNot('id', $post->id);
 
         if( $query->exists()) {
