@@ -3,7 +3,7 @@
 @endphp
 <x-layout.guest>
     <x-slot:heading>
-        <x-page-header title="Infographics by Thaboar" :image="asset('images/header/about.png')"/>
+        <x-page-header title="Infographics" :image="asset('images/header/about.png')" :thaboar="true"/>
     </x-slot:heading>
     <div class="content mb-2" x-data="
         {
