@@ -9,6 +9,7 @@ export default defineConfig({
                 "resources/css/app.css",
                 "resources/scss/app.scss",
                 "resources/scss/admin.scss",
+                "resources/js/simpleMDE.js",
                 "resources/js/app.js",
             ],
             refresh: true,
