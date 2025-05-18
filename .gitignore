@@ -5,6 +5,8 @@
 /public/storage
 /public/images
 /storage/*.key
+/storage/app/public/images/content
+/storage/app/public/images/infographics
 /vendor
 .env
 .env.backup
