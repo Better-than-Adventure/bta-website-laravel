@@ -2,5 +2,5 @@
 <div style="color: gray;">
     {{$post->author->name}} |
     Posted on
-    <span>{{$post->published_at->format('M d, Y')}}</span>
+    <span>{{date('M d, Y', $post->published_at)}}</span>
 </div>
