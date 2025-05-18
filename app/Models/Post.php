@@ -32,6 +32,10 @@ class Post extends Model implements Feedable
         return '<span class="badge bg-success">Live</span>';
     }
 
+    public function getPublishDateAttribute(): string {
+        return \Carbon\Carbon::parse($this->published_at)->format('M d, Y');
+    }
+
     public function author(): BelongsTo {
         return $this->belongsTo(User::class, 'author_id');
     }
