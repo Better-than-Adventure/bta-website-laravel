@@ -1,2 +1,3 @@
-/images/content
-/images/infographics
+/content
+/infographics
+!.gitignore

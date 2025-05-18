@@ -1,0 +1,6 @@
+/framework/
+/logs/*
+!/app/public/
+!/app/public/storage/
+!/app/public/storage/images/
+!/app/public/storage/images/*
