@@ -1,8 +1,12 @@
+!public/storage/images/*
+
 /.phpunit.cache
 /node_modules
 /public/build
 /public/hot
 /public/storage
+/public/storage/images/content
+/public/storage/images/infographics
 /storage/*.key
 /vendor
 .env
